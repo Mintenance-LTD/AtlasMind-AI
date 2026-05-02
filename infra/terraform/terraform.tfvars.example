@@ -1,0 +1,6 @@
+project_id       = "atlasmind-stage"
+env              = "stage"
+region           = "europe-west1"
+bq_location      = "EU"
+workspace_domain = "atlasmind.ai"
+image_tag        = "latest"

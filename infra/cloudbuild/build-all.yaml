@@ -1,0 +1,62 @@
+steps:
+  # Base image first (used as cache).
+  - id: build-base
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/base:${SHORT_SHA}
+      - -f
+      - agents/Dockerfile.base
+      - .
+
+  # Per-agent images, in parallel.
+  - id: build-geopolitical
+    name: gcr.io/cloud-builders/docker
+    waitFor: ["build-base"]
+    args: [build, -t, "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/geopolitical:${SHORT_SHA}", -f, agents/geopolitical/Dockerfile, .]
+  - id: build-market
+    name: gcr.io/cloud-builders/docker
+    waitFor: ["build-base"]
+    args: [build, -t, "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/market:${SHORT_SHA}", -f, agents/market/Dockerfile, .]
+  - id: build-investment
+    name: gcr.io/cloud-builders/docker
+    waitFor: ["build-base"]
+    args: [build, -t, "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/investment:${SHORT_SHA}", -f, agents/investment/Dockerfile, .]
+  - id: build-population
+    name: gcr.io/cloud-builders/docker
+    waitFor: ["build-base"]
+    args: [build, -t, "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/population:${SHORT_SHA}", -f, agents/population/Dockerfile, .]
+  - id: build-technology-trend
+    name: gcr.io/cloud-builders/docker
+    waitFor: ["build-base"]
+    args: [build, -t, "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/technology-trend:${SHORT_SHA}", -f, agents/technology_trend/Dockerfile, .]
+  - id: build-country-risk
+    name: gcr.io/cloud-builders/docker
+    waitFor: ["build-base"]
+    args: [build, -t, "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/country-risk:${SHORT_SHA}", -f, agents/country_risk/Dockerfile, .]
+  - id: build-scenario
+    name: gcr.io/cloud-builders/docker
+    waitFor: ["build-base"]
+    args: [build, -t, "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/scenario:${SHORT_SHA}", -f, agents/scenario/Dockerfile, .]
+  - id: build-strategy-briefing
+    name: gcr.io/cloud-builders/docker
+    waitFor: ["build-base"]
+    args: [build, -t, "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/strategy-briefing:${SHORT_SHA}", -f, agents/strategy_briefing/Dockerfile, .]
+
+images:
+  - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/geopolitical:${SHORT_SHA}"
+  - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/market:${SHORT_SHA}"
+  - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/investment:${SHORT_SHA}"
+  - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/population:${SHORT_SHA}"
+  - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/technology-trend:${SHORT_SHA}"
+  - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/country-risk:${SHORT_SHA}"
+  - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/scenario:${SHORT_SHA}"
+  - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/atlasmind/strategy-briefing:${SHORT_SHA}"
+
+substitutions:
+  _REGION: europe-west1
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8

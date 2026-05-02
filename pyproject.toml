@@ -1,0 +1,58 @@
+[project]
+name = "atlasmind"
+version = "0.1.0"
+description = "AtlasMind AI — Strategic Intelligence Operating System"
+requires-python = ">=3.12"
+readme = "README.md"
+authors = [{ name = "AtlasMind" }]
+
+dependencies = [
+    "google-cloud-aiplatform>=1.71",
+    "google-cloud-bigquery>=3.25",
+    "google-cloud-firestore>=2.18",
+    "google-cloud-pubsub>=2.23",
+    "google-cloud-storage>=2.18",
+    "google-cloud-secret-manager>=2.20",
+    "google-api-python-client>=2.150",
+    "google-auth>=2.34",
+    "earthengine-api>=1.0",
+    "pydantic>=2.9",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "httpx>=0.27",
+    "structlog>=24.4",
+    "tenacity>=9.0",
+    "python-dateutil>=2.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.7",
+    "mypy>=1.13",
+    "types-python-dateutil",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["core", "agents"]

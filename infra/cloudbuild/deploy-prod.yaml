@@ -1,0 +1,13 @@
+steps:
+  - id: terraform-init
+    name: hashicorp/terraform:1.9
+    dir: infra/terraform
+    args: [init, -backend-config=backend.prod.hcl]
+
+  - id: terraform-apply
+    name: hashicorp/terraform:1.9
+    dir: infra/terraform
+    args: [apply, -auto-approve, -var=project_id=atlasmind-prod, -var=env=prod, -var=image_tag=${SHORT_SHA}]
+
+options:
+  logging: CLOUD_LOGGING_ONLY

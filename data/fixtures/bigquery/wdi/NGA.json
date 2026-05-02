@@ -1,0 +1,11 @@
+{
+  "SP.POP.TOTL":         { "value": 223804632, "year": 2023, "source": "World Bank WDI" },
+  "SP.POP.GROW":         { "value": 2.41,      "year": 2023, "source": "World Bank WDI" },
+  "SP.URB.TOTL.IN.ZS":   { "value": 54.0,      "year": 2023, "source": "World Bank WDI" },
+  "SP.URB.GROW":         { "value": 3.5,       "year": 2023, "source": "World Bank WDI" },
+  "SP.POP.0014.TO.ZS":   { "value": 42.5,      "year": 2023, "source": "World Bank WDI" },
+  "SP.POP.1564.TO.ZS":   { "value": 54.7,      "year": 2023, "source": "World Bank WDI" },
+  "SL.TLF.CACT.ZS":      { "value": 53.4,      "year": 2023, "source": "World Bank WDI" },
+  "SP.DYN.LE00.IN":      { "value": 53.6,      "year": 2022, "source": "World Bank WDI" },
+  "SE.SEC.CMPT.LO.ZS":   { "value": 73.0,      "year": 2020, "source": "World Bank WDI" }
+}
